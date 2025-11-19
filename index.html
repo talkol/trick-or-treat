@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product Landing</title>
+  <meta name="description" content="A crisp, modern landing page template." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Antic+Slab&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* 1) Design Tokens */
+    :root{
+      --bg: #0b0c10;
+      --card: #111318;
+      --muted: #000;
+      --text: #e5e7eb;
+      --brand: #7c3aed;     /* violet-600 */
+      --brand-700: #6d28d9; /* hover */
+      --ring: rgba(124,58,237,.45);
+      --max: 1200px;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --pad: clamp(16px, 3vw, 28px);
+      --headline: clamp(68px, 7vw, 96px);
+      --sub: clamp(16px, 2.2vw, 22px);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root{
+        --bg: #FFCA70;
+        --card:#ffffff;
+        --muted:#000;
+        --text:#0f172a;
+        --ring: rgba(124,58,237,.35);
+        --shadow: 0 12px 28px rgba(2,6,23,.08);
+      }
+    }
+
+    /* 2) Base & Reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html:focus-within { scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family: "Antic Slab", serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    img{ max-width:100%; display:block; }
+    a{ color: inherit; text-decoration: none; }
+    .container{ max-width: var(--max); margin-inline: auto; padding-inline: var(--pad); }
+
+    /* 3) Utility */
+    .visually-hidden{
+      position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:.6rem; border-radius: 999px; padding: .9rem 1.25rem;
+      font-weight: 600; letter-spacing:.2px; transition: all .2s ease;
+      border: 1px solid transparent; cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,.15);
+    }
+    .btn-primary{ background: var(--brand); color: white; }
+    .btn-primary:hover{ background: var(--brand-700); transform: translateY(-1px); }
+    .btn-outline{
+      background: transparent; color: var(--text);
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn-outline:hover{ border-color: var(--text); transform: translateY(-1px); }
+
+    /* 4) Header / Nav */
+    header{
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(1.2) blur(8px);
+      background: color-mix(in oklab, var(--bg) 85%, transparent);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding-block: .75rem;
+    }
+    .brand{
+      display:flex; align-items:center; gap:.7rem; font-weight:700;
+      letter-spacing:.2px;
+    }
+    .logo{
+      height: 50px;
+    }
+    .links{ display:flex; gap: 2rem; align-items:center; font-weight:700; font-size:17px; }
+    .links a:hover{ opacity:1; }
+
+    /* 5) Hero */
+    .hero{
+      padding-block: clamp(48px, 8vw, 100px);
+    }
+    .hero-grid{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .headline{
+      font-family: "Playfair Display", Georgia, serif;
+      font-variant: small-caps;
+      font-size: var(--headline);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin: 0 0 .6rem;
+      text-shadow:
+        -1px -1px 0 white,
+        1px -1px 0 white,
+        -1px  1px 0 white,
+        1px  1px 0 white;
+    }
+    .sub{ font-size: var(--sub); color: var(--muted); margin: 0 0 1.25rem; }
+    .hero-card{
+      padding: 0;
+      position: relative; isolation: isolate;
+      max-width: 80%;
+    }
+    .hero-art{
+      aspect-ratio: 4/3; border-radius: calc(var(--radius) - 4px);
+      background:
+        radial-gradient(120px 80px at 20% 20%, rgba(124,58,237,.45), transparent 60%),
+        radial-gradient(180px 120px at 80% 70%, rgba(59,130,246,.40), transparent 60%),
+        linear-gradient(135deg, #0ea5e9 0%, #7c3aed 45%, #0ea5e9 100%);
+      -webkit-mask: linear-gradient(#000 60%, transparent);
+      mask: linear-gradient(#000 60%, transparent);
+      position: relative;
+    }
+    .hero-art::after{
+      content:""; position:absolute; inset: 12% 12% auto auto; width: 140px; height: 140px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: var(--shadow);
+      transform: rotate(8deg);
+    }
+    .png-shadow {
+      filter: drop-shadow(0 8px 12px rgba(20, 20, 20, 0.4));
+    }
+
+    #crazy-optional-rules h3 {
+        text-shadow:
+        -0.5px -0.5px 0 white,
+        0.5px -0.5px 0 white,
+        -0.5px  0.5px 0 white,
+        0.5px  0.5px 0 white;
+    }
+
+    /* 6) Features */
+    .section{ padding-block: clamp(44px, 7vw, 90px); }
+    .section h2{
+      text-align: center;
+      font-size: clamp(44px, 5vw, 60px);
+      margin: 2rem 0 6rem;
+    }
+    .section h3 {
+        text-align: center;;
+        font-size: clamp(40px, 4.2vw, 56px);
+    }
+    .section p.lead{ color: var(--muted); margin: 0 0 1.2rem; }
+    @media (max-width: 900px){ 
+        .long-row-container { gap:50px !important; }
+        .long-row.image-right { flex-direction: column !important; gap:0 !important; }  
+        .long-row.image-left { flex-direction: column-reverse !important; gap:0 !important; } 
+        .long-row > img { padding-left:20px; padding-right:20px; }
+        .long-row > div { padding-left:20px; padding-right:20px; }
+        .section h2 { margin-bottom:2rem; margin-top:4rem; }
+        .section-divider { margin:-1px; }
+        #special-actions > div.container > .long-row-container > div.long-row { margin-top:40px; }
+        #crazy-optional-rules > div.container > .long-row-container { gap:10px !important; }
+        #crazy-optional-rules > div.container > .long-row-container > div:first-child { padding-left:20px; padding-right:20px; }
+        #crazy-optional-rules > div.container > .long-row-container > h3 { margin-top:80px; padding-left:20px; padding-right:20px; }
+    }
+    
+    .features{
+      display:grid; gap: clamp(16px, 2.5vw, 24px);
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 900px){ .features{ grid-template-columns: 1fr; } }
+    .feature{
+      padding: 18px; border-radius: var(--radius); background: var(--card);
+      border: 1px solid rgba(255,255,255,.10); box-shadow: var(--shadow);
+    }
+    .feature .icon{
+      inline-size: 40px; block-size: 40px; border-radius: 12px;
+      display:grid; place-items:center; margin-bottom:.6rem;
+      background: color-mix(in oklab, var(--brand) 20%, transparent);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .feature h3{ margin: .2rem 0 .35rem; font-size: 18px; }
+    .feature p{ color: var(--muted); margin: 0; }
+
+    /* 7) Testimonials */
+    .testimonials{
+      display:grid; gap: clamp(16px, 2.5vw, 24px);
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 900px){ .testimonials{ grid-template-columns: 1fr; } }
+    .quote{
+      padding: 18px; border-radius: var(--radius); background: var(--card);
+      border: 1px solid rgba(255,255,255,.10); box-shadow: var(--shadow);
+      font-size: 15.5px;
+    }
+    .quote strong{ display:block; margin-top:.7rem; }
+
+    /* 8) Pricing */
+    .pricing{
+      display:grid; gap: clamp(16px, 2.5vw, 24px);
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+    }
+    @media (max-width: 1000px){ .pricing{ grid-template-columns: 1fr; } }
+    .plan{
+      background: var(--card); border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+      display:flex; flex-direction:column; gap: .9rem;
+    }
+    .plan.popular{
+      outline: 2px solid var(--brand); outline-offset: 2px;
+      position: relative;
+    }
+    .badge{
+      position:absolute; top: 12px; right: 12px; font-size: 12px; font-weight:700;
+      padding: 6px 10px; border-radius: 999px; background: var(--brand); color: white;
+    }
+    .price{ font-size: clamp(28px, 3vw, 36px); font-weight: 700; }
+    .plan ul{ list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; color: var(--muted);}
+    .plan li{ display:flex; align-items:center; gap:.6rem; }
+
+    /* 9) FAQ */
+    .faq{ display:grid; gap: 12px; }
+    details{
+      background: var(--card); border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px; padding: 14px 16px;
+    }
+    summary{ cursor: pointer; font-weight:600; }
+    summary::marker{ content: ""; }
+
+    /* 10) Footer */
+    footer{
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: var(--muted);
+      padding-block: 28px;
+    }
+
+    /* Focus ring */
+    :is(a, button, summary, details, .btn):focus-visible{
+      outline: 3px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <a class="visually-hidden" href="#main">Skip to content</a>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <div class="brand">
+        <img src="logo.png" class="logo" />
+      </div>
+
+      <nav class="links" aria-label="Primary">
+        <a href="#how-to-play" style="color:#8773B4;">How To Play</a>
+        <a href="#special-actions" style="color:#59A400;">Special Actions</a>
+        <a href="#faq" style="color:#2D93C9;">FAQ</a>
+        <a href="#crazy-optional-rules" style="color:#EE2953;">Crazy Optional Rules</a>
+        <a href="#print-kit" style="color:#D38605;">Print Kit</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="main">
+    <section class="hero" style="background: linear-gradient(180deg,rgba(255, 225, 173, 1) 0%, rgba(245, 177, 29, 1) 100%);">
+      <div class="container hero-grid">
+        <div>
+          <h1 class="headline">Trick-or-Treat</h1>
+          <p class="sub">The ultimate Halloween card game for spooky fun. Free to print.</p>
+        </div>
+
+        <div class="hero-card" aria-label="Game Logo">
+          <img src="logo-big.png" class="png-shadow" />
+      </div>
+    </section>
+
+    <section class="section-divider" style="height:80px; background:linear-gradient(to bottom right,rgba(245, 177, 29, 1) 0,rgba(245, 177, 29, 1) 49.5%,#b34cc7 50%, rgba(180, 111, 174, 1) 50.5%,rgba(180, 111, 174, 1) 100%);">
+    </section>
+
+    <!-- How To Play -->
+    <section id="how-to-play" class="section" style="background: linear-gradient(180deg,rgba(180, 111, 174, 1) 0%, rgba(54, 62, 139, 1) 100%);">
+      <div class="container">
+        <h2>How To Play</h2>
+
+        <div class="long-row-container" style="display: flex; flex-direction: column; gap: 80px; align-items: center;">
+        
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            The game box contains 112 cards - two identical decks with 56 cards each. Shuffle all cards together and place the shuffled deck face down in the center of the table. This is called the <i><b>draw deck</b></i>.
+            </p>
+            </div>
+            <img src="table01.jpg" style="max-width: 400px;"/>
+        </div>
+
+        <div class="long-row image-left" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="table02.jpg" style="max-width: 400px;"/>
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            Deal each player 8 cards from the draw deck. Players keep their cards hidden, so every player can only look at their own cards. The goal is to get rid of your cards first.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            Turn over the top card of the draw deck and place it face up in the center of the table. This is called the <i><b>discard deck</b></i>. The top of the discard deck is called the <i><b>top card</b></i>.
+            </p>
+            </div>
+            <img src="table03.jpg" style="max-width: 400px;"/>
+        </div>
+
+        <div class="long-row image-left" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="table04.jpg" style="max-width: 400px;"/>
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            Moving clockwise, every player attempts to discard a card on their turn. A card can only be played if it matches the <i><b>top card</b></i> in some way - here it is Frankenstein's monster on purple background.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            These are monster cards. A monster card can be played if it matches the <i><b>background color</b></i> of the top card (purple) <u>or</u> if it matches the <i><b>face</b></i> of the top card (Frankenstein's monster). 
+            </p>
+            </div>
+            <img src="cards01.png" style="max-width: 400px;" class="png-shadow" />
+        </div>
+
+        <div class="long-row image-left" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="cards02.png" style="max-width: 400px;" class="png-shadow" />
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            These are special action cards. An action card can be played if it matches the <i><b>background color</b></i> of the top card (purple) <u>or</u> if it matches the <i><b>face</b></i> of the top card (Frankenstein's monster).
+            </p>
+            </div>
+        </div>
+
+         <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            These are special action cards with <i><b>multi-color</b></i> background. They can <u>always</u> be played, regardless of what the top card is. This makes them quite powerful so save them for special occasions!
+            </p>
+            </div>
+            <img src="cards03.png" style="max-width: 400px;" class="png-shadow" />
+        </div>
+
+        <div class="long-row image-left" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="table05.jpg" style="max-width: 400px;"/>
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            Back to our game... Each one of the 5 cards highlighted in red match the current <i><b>top card</b></i> (Frankenstein's monster on purple background) and can be played in this turn.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            Let's say we choose to play Frankenstein's monster on green background. The card is discarded onto the <i><b>discard deck</b></i> and becomes the new <i><b>top card</b></i> for the next player.
+            </p>
+            </div>
+            <img src="table06.jpg" style="max-width: 400px;"/>
+        </div>
+
+        <div class="long-row image-left" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="table07.jpg" style="max-width: 400px;"/>
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            The next player just played the Pumpkinhead monster on green background. This card becomes the new <i><b>top card</b></i> and the turn passes on to the next player.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            Let's say that the next player doesn't have any card that matches the top card and therefore no card can be played. In this case, the player draws a card from the <i><b>draw deck</b></i> instead of playing one.
+            </p>
+            </div>
+            <img src="table08.jpg" style="max-width: 400px;"/>
+        </div>
+
+        <div class="long-row image-left" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="table09.jpg" style="max-width: 400px;"/>
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            After a few rounds, players discard more and more of their cards. The first player to discard their last card wins the game. You may continue playing without the winner to see who takes second place.
+            </p>
+            </div>
+        </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section-divider" style="height:80px; background:linear-gradient(to top right,rgba(92, 146, 29, 1) 0,rgba(92, 146, 29, 1) 49.5%,#0d9918 50%, rgba(54, 62, 139, 1) 50.5%,rgba(54, 62, 139, 1) 100%);"></section>
+    </section>
+
+    <!-- Special Action Cards -->
+    <section id="special-actions" class="section" style="background: linear-gradient(0deg,rgba(126, 222, 13, 1) 0%, rgba(92, 146, 29, 1) 100%);">
+      <div class="container">
+        <h2>Special Action Cards</h2>
+
+        <div class="long-row-container" style="display: flex; flex-direction: column; gap: 80px; align-items: center;">
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="actions01.png" style="max-width: 400px;" class="png-shadow" />
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            After this card is played, the next player loses their turn and the turn moves to the following player after them.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="actions02.png" style="max-width: 400px;" class="png-shadow" />
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            Reverses the direction of play from now on. The next player is counter-clockwise instead of clockwise (or the opposite).
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="actions03.png" style="max-width: 400px;" class="png-shadow" />
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            The discarding player must play again (with the plus as top card). They must draw a card if they have no other suitable card to discard.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="actions04.png" style="max-width: 400px;" class="png-shadow" />
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            The next player will have to draw two cards unless they have another Evil Twins card to discard. If so, the following player will have to draw four cards unless they have another Evil Twins card to discard. This continues and stacks up.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="actions05.png" style="max-width: 400px;" class="png-shadow" />
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            The player may continue discarding all cards with the same background color. If they have none, the right passes on. After that, they may discard one card of a different color with the same face.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="actions06.png" style="max-width: 400px;" class="png-shadow" />
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            Similar to a regular Trick-or-Treat card but also allows the discarding player to choose the background color before starting to discard more cards.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="actions07.png" style="max-width: 400px;" class="png-shadow" />
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            The discarding player declares the next background color of the top card. The next player can discard a card with the newly declared background color.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <img src="actions08.png" style="max-width: 400px;" class="png-shadow" />
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.8rem;">
+            The discarding player can choose one other player that will have to reveal all of their cards to everybody for the duration of one turn.
+            </p>
+            </div>
+        </div>
+
+        </div>
+        
+      </div>
+    </section>
+
+    <section class="section-divider" style="height:80px; background:linear-gradient(to bottom right,rgba(126, 222, 13, 1) 0,rgba(126, 222, 13, 1) 49.5%,rgba(17, 142, 209, 1) 50%, rgba(79, 194, 255, 1) 50.5%,rgba(79, 194, 255, 1) 100%);">
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section" style="background: linear-gradient(180deg,rgba(79, 194, 255, 1) 0%, rgba(17, 142, 209, 1) 100%);">
+      <div class="container">
+        <h2>Frequent Rule Questions</h2>
+
+        <div class="long-row-container" style="display: flex; flex-direction: column; gap: 40px; align-items: center;">
+        
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px; background-color: rgba(20,20,20,0.06); border-radius:10px;">
+            <p style="font-size: 1.6rem; margin:30px;">
+            What happens when the <i><b>draw deck</b></i> runs out?
+            </p>
+            </div>
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.4rem;">
+            Take the entire <i><b>discard deck</b></i> below the <i><b>top card</b></i>, shuffle it and turn it into a new <i><b>draw deck</b></i>. Leave the top card alone as the base of a fresh discard deck.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px; background-color: rgba(20,20,20,0.06); border-radius:10px;">
+            <p style="font-size: 1.6rem; margin:30px;">
+            What happens after a <i><b>redirect</b></i> card is played when there are only 2 players?
+            </p>
+            </div>
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.4rem;">
+            Clockwise or counter-clockwise don't matter when there are only 2 players. The turn passes to the other player.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px; background-color: rgba(20,20,20,0.06); border-radius:10px;">
+            <p style="font-size: 1.6rem; margin:30px;">
+            What happens after a <i><b>stop</b></i> card is played when there are only 2 players?
+            </p>
+            </div>
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.4rem;">
+            The other player is stopped and loses their turn, which means the discarding player gets another turn and should play another card.
+            </p>
+            </div>
+        </div>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 400px; background-color: rgba(20,20,20,0.06); border-radius:10px;">
+            <p style="font-size: 1.6rem; margin:30px;">
+            What happens if the player has no more suitable cards to play after playing a <i><b>plus</b></i> card?
+            </p>
+            </div>
+            <div style="max-width: 400px;">
+            <p style="font-size: 1.4rem;">
+            After playing a plus card, the discarding player must play another card with the plus set as the top card. If they have no suitable cards to play, they must draw a card.
+            </p>
+            </div>
+        </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section-divider" style="height:80px; background:linear-gradient(to top right,rgba(238, 41, 83, 1) 0,rgba(238, 41, 83, 1) 49.5%,rgba(255, 112, 162, 1) 50%, rgba(17, 142, 209, 1) 50.5%,rgba(17, 142, 209, 1) 100%);"></section>
+    </section>
+
+    <!-- Crazy Optional Rules -->
+    <section id="crazy-optional-rules" class="section" style="background: linear-gradient(180deg,rgba(238, 41, 83, 1) 0%, rgba(255, 112, 162, 1) 100%);">
+      <div class="container">
+        <h2 style="margin-bottom:60px;">Crazy Optional Rules</h2>
+
+        <div class="long-row-container" style="display: flex; flex-direction: column; gap: 80px; align-items: center;">
+        
+        <div style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 900px; text-align:center;">
+                <p style="font-size: 1.4rem; margin-bottom: 30px;">
+                These optional rules expand the original game instructions for some extra fun. You may choose to add one or more in any combination or even all of them together!</p>
+                <p style="font-size: 1.4rem;">Start playing the game without them. Once comfortable with the core rules, experiment to see which crazy optional rules you like best.
+            </p>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom:0;">Optional Rule 1 - Last Card</h3>
+        
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 750px;">
+            <p style="font-size: 2.2rem;">
+            When a player has one card left, they must declare and say the words "last card" out loud. If they fail to do so before the next player plays, they must draw four cards from the <i><b>draw deck</b></i>.
+            </p>
+            </div>
+            <img src="optional01.png" class="png-shadow" style="max-width: 250px;"/>
+        </div>
+
+        <h3 style="margin-bottom:0;">Optional Rule 2 - Spy and Trade</h3>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 750px;">
+            <p style="font-size: 2.2rem;">
+            When a <i><b>spy</b></i> card is discarded, after the other player reveals their cards, the discarding player can choose whether to trade cards with them. The discarding player's cards remain hidden.
+            </p>
+            </div>
+            <img src="optional02.png" class="png-shadow" style="max-width: 250px;"/>
+        </div>
+
+        <h3 style="margin-bottom:0;">Optional Rule 3 - Silly Slime</h3>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 750px;">
+            <p style="font-size: 2.2rem;">
+            When a Slime monster card is discarded, the discarding player must make a silly noise or say a silly word out loud. All other players must immediately repeat the noise or word and say it after them. The last player to do so must draw two cards from the <i><b>draw deck</b></i>.
+            </p>
+            </div>
+            <img src="optional03.png" class="png-shadow" style="max-width: 250px;"/>
+        </div>
+        
+        <h3 style="margin-bottom:0;">Optional Rule 4 - Stop and Name</h3>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 750px;">
+            <p style="font-size: 2.2rem;">
+            When a <i><b>stop</b></i> card is discarded, in addition to stopping the next player, the discarding player must also choose a new name for the stopped player. The new name must be used by everybody until the end of the game. If any of the players forgets and calls the stopped player by their real name, they must immediately draw one card from the <i><b>draw deck</b></i>.
+            </p>
+            </div>
+            <img src="optional04.png" class="png-shadow" style="max-width: 250px;"/>
+        </div>
+
+        <h3 style="margin-bottom:0;">Optional Rule 5 - Redirect and Steal</h3>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 750px;">
+            <p style="font-size: 2.2rem;">
+            When a <i><b>redirect</b></i> card is discarded, in addition to reversing the direction of play, the discarding player chooses one other player to steal one card from. The discarding player can steal any one of their cards (without looking at the card's face). In exchange, the discarding player must give one of their own cards to this player.
+            </p>
+            </div>
+            <img src="optional05.png" class="png-shadow" style="max-width: 250px;"/>
+        </div>
+
+        <h3 style="margin-bottom:0;">Optional Rule 6 - Evil Twins or Bluff</h3>
+
+        <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 750px;">
+            <p style="font-size: 2.2rem;">
+            Unlike other cards, Evil Twins monster cards are always discarded face down. Players may bluff by discarding a different card. The next player can either continue or call the bluff. If the bluff is correctly called, the bluffer takes two cards plus the <i><b>+2 pot</b></i>. If the call is wrong, the caller takes two cards plus the <i><b>+2 pot</b></i> instead.
+            </p>
+            </div>
+            <img src="optional06.png" class="png-shadow" style="max-width: 250px;"/>
+        </div>
+
+        <h3 style="margin-bottom:0;">Optional Rule 7 - Hijack Monster</h3>
+
+         <div class="long-row image-right" style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 750px;">
+            <p style="font-size: 2.2rem;">
+            After a player discards any <i><b>monster card</b></i>, if any other player has the same exact monster with the exact same background color, they may play it immediately out of turn and hijack the turn from the next player. The hijacking player has a small window of opportunity to do so before the next card is played in turn. This rule also holds if the player discarding the monster is in the middle of a Trick-or-Treat streak and the hijack will break the streak. After a successful hijack, the game continues with the player following the hijacking player.
+            </p>
+            </div>
+            <img src="optional07.png" class="png-shadow" style="max-width: 250px;"/>
+        </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section-divider" style="height:80px; background:linear-gradient(to bottom right,rgba(255, 112, 162, 1) 0,rgba(255, 112, 162, 1) 49.5%,rgba(245, 177, 29, 1) 50%, #FFCA70 50.5%,#FFCA70 100%);">
+    </section>
+
+    <!-- Print Kit -->
+    <section id="print-kit" class="section">
+      <div class="container">
+        <h2 style="margin-bottom:60px;">Print Kit</h2>
+
+        <div class="long-row-container" style="display: flex; flex-direction: column; gap: 40px; align-items: center;">
+        
+        <div style="display: flex; flex-direction: row; gap: 60px; align-items: center;">
+            <div style="max-width: 900px; text-align:center;">
+                <p style="font-size: 1.4rem; margin-bottom: 30px;">
+                This game is open source. All resources required to print it are freely available to you.</p>
+                <p style="font-size: 1.4rem;">Provide the source available below to any printing service that can print on playing cards, such as <a href="http://ivory.co.uk/">Ivory</a>, and you can order your own packs of physical cards.</p>
+            </div>
+        </div>
+
+        <a class="btn btn-primary" href="Trick-or-Treat-Print-Kit.zip" aria-label="Download Print Kit">Download Print Kit</a>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; gap:1rem; flex-wrap: wrap;">
+      <small>© <span id="year"></span> All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script>
+    // Tiny enhancement: keep footer year current (still a static file)
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
