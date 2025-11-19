@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Antic+Slab&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
   <style>
-    /* 1) Base & Reset */
+    /* Base Styles & CSS Reset - Universal box-sizing, smooth scrolling, and base element styles */
     *, *::before, *::after { box-sizing: border-box; }
     html:focus-within { scroll-behavior: smooth; }
     body{
@@ -26,7 +26,7 @@
     a{ color: inherit; text-decoration: none; }
     .container{ max-width: 1200px; margin-inline: auto; padding-inline: clamp(16px, 3vw, 28px); }
 
-    /* 3) Utility */
+    /* Utility Classes - Reusable utility components and helper classes */
     .visually-hidden{
       position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
       overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
@@ -41,7 +41,7 @@
     .btn-primary{ background: #7c3aed; color: white; }
     .btn-primary:hover{ background: #6d28d9; transform: translateY(-1px); }
 
-    /* 4) Header / Nav */
+    /* Header & Navigation - Sticky header with glassmorphism effect and navigation menu */
     header{
       position: sticky; top: 0; z-index: 50;
       backdrop-filter: saturate(1.2) blur(8px);
@@ -62,7 +62,7 @@
     .links{ display:flex; gap: 2rem; align-items:center; font-weight:700; font-size:17px; }
     .links a:hover{ opacity:1; }
 
-    /* 5) Hero */
+    /* Hero Section - Main hero section with headline, subtitle, and featured image */
     .hero{
       padding-block: clamp(48px, 8vw, 100px);
     }
@@ -103,7 +103,7 @@
         0.5px  0.5px 0 white;
     }
 
-    /* 6) Sections & Layout */
+    /* Content Sections & Layout - General section styles, headings, and section dividers */
     .section{ padding-block: clamp(44px, 7vw, 90px); }
     .section h2{
       text-align: center;
@@ -118,7 +118,7 @@
       height: 80px;
     }
     
-    /* Background Gradients */
+    /* Background Gradient Themes - Vibrant gradient backgrounds for different sections and diagonal dividers */
     .bg-hero { background: linear-gradient(180deg,rgba(255, 225, 173, 1) 0%, rgba(245, 177, 29, 1) 100%); }
     .bg-how-to-play { background: linear-gradient(180deg,rgba(180, 111, 174, 1) 0%, rgba(54, 62, 139, 1) 100%); }
     .bg-special-actions { background: linear-gradient(0deg,rgba(126, 222, 13, 1) 0%, rgba(92, 146, 29, 1) 100%); }
@@ -130,48 +130,48 @@
     .bg-divider-4 { background: linear-gradient(to top right,rgba(238, 41, 83, 1) 0,rgba(238, 41, 83, 1) 49.5%,rgba(255, 112, 162, 1) 50%, rgba(17, 142, 209, 1) 50.5%,rgba(17, 142, 209, 1) 100%); }
     .bg-divider-5 { background: linear-gradient(to bottom right,rgba(255, 112, 162, 1) 0,rgba(255, 112, 162, 1) 49.5%,rgba(245, 177, 29, 1) 50%, #FFCA70 50.5%,#FFCA70 100%); }
     
-    /* Long Row Layout */
+    /* Long Row Layout System - Flexible row-based layout for alternating image-text patterns */
     .long-row-container { display: flex; flex-direction: column; gap: 80px; align-items: center; }
     .long-row-container.gap-40 { gap: 40px; }
     .long-row { display: flex; flex-direction: row; gap: 60px; align-items: center; }
     .long-row.image-left { flex-direction: row; }
     .long-row.image-right { flex-direction: row; }
     
-    /* Width Utilities */
+    /* Width Utilities - Maximum width constraints for content and image sizing */
     .max-w-250 { max-width: 250px; }
     .max-w-400 { max-width: 400px; }
     .max-w-750 { max-width: 750px; }
     .max-w-900 { max-width: 900px; }
     
-    /* Font Size Utilities */
+    /* Typography Utilities - Font size modifiers for responsive text scaling */
     .text-1-4 { font-size: 1.4rem; }
     .text-1-6 { font-size: 1.6rem; }
     .text-1-8 { font-size: 1.8rem; }
     .text-2-2 { font-size: 2.2rem; }
     
-    /* Spacing Utilities */
+    /* Spacing Utilities - Margin utilities for consistent vertical rhythm and spacing */
     .mb-0 { margin-bottom: 0; }
     .mb-30 { margin-bottom: 30px; }
     .mb-60 { margin-bottom: 60px; }
     .m-30 { margin: 30px; }
     
-    /* Text Alignment */
+    /* Text Alignment Utilities - Text alignment helpers for centered content */
     .text-center { text-align: center; }
     
-    /* Navigation Link Colors */
+    /* Navigation Link Colors - Color-coded navigation links matching section theme colors */
     .nav-link-purple { color: #8773B4; }
     .nav-link-green { color: #59A400; }
     .nav-link-blue { color: #2D93C9; }
     .nav-link-pink { color: #EE2953; }
     .nav-link-orange { color: #D38605; }
     
-    /* FAQ Question Box */
+    /* Component Styles - Specific styling for individual page components */
     .faq-question {
       background-color: rgba(20,20,20,0.06);
       border-radius: 10px;
     }
     
-    /* Responsive */
+    /* Responsive Design - Mobile-first responsive adjustments and breakpoints */
     @media (max-width: 900px){ 
         .long-row-container { gap:50px !important; }
         .long-row.image-right { flex-direction: column !important; gap:0 !important; }  
@@ -186,7 +186,7 @@
         #crazy-optional-rules > div.container > .long-row-container > h3 { margin-top:80px; padding-left:20px; padding-right:20px; }
     }
 
-    /* 10) Footer */
+    /* Footer - Page footer with copyright and additional information */
     footer{
       border-top: 1px solid rgba(255,255,255,.10);
       color: #000;
@@ -199,7 +199,7 @@
       flex-wrap: wrap;
     }
 
-    /* Focus ring */
+    /* Accessibility - Focus styles for keyboard navigation and accessibility */
     :is(a, button, summary, details, .btn):focus-visible{
       outline: 3px solid rgba(124,58,237,.35);
       outline-offset: 2px;
